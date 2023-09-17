@@ -1,29 +1,54 @@
-import { createContext, useEffect, useState } from "react";
+import axios from 'axios';
+import { createContext, useEffect, useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 
-export const AuthContext = createContext();
+export const authContext = createContext();
 
-export const AuthContextProvider = ({ children }) => {
+export const AuthContexProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem("user")) || null
+    JSON.parse(localStorage.getItem('user') || null)
   );
-
-  const login = () => {
-    //TO DO
-    setCurrentUser({
-      id: 1,
-      name: "John Doe",
-      profilePic:
-        "https://images.pexels.com/photos/3228727/pexels-photo-3228727.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    });
+  const login = async (user) => {
+    try {
+      const res = await axios.post('http://localhost:8000/auth/login', user, {
+        withCredentials: true,
+      });
+      if (res) {
+        setCurrentUser(res.data);
+        toast.success('Login Sucessful', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+      }
+    } catch (error) {
+      toast.error('something went wrong', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+      console.log('error', error);
+    }
   };
-
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(currentUser));
+    localStorage.setItem('user', JSON.stringify(currentUser));
   }, [currentUser]);
 
+  console.log('login', currentUser);
   return (
-    <AuthContext.Provider value={{ currentUser, login }}>
+    <authContext.Provider value={{ login, currentUser }}>
       {children}
-    </AuthContext.Provider>
+      <ToastContainer />
+    </authContext.Provider>
   );
 };

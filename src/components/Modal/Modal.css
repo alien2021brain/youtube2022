@@ -1,0 +1,61 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  padding-bottom: 60px;
+}
+.wrapper {
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  height: max-content;
+  width: 600px;
+  background-color: white;
+  border-radius: 20px;
+  padding: 40px;
+  position: relative;
+}
+.form {
+  height: 100%;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.cross {
+  position: absolute;
+  right: 20px;
+  color: red;
+  cursor: pointer;
+}
+.form input {
+  outline: none;
+  border: none;
+  width: 100%;
+}
+.formcontrol {
+  border: 1px solid gray;
+  padding: 20px;
+}
+.updateContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+.update {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  background-color: rgb(21 128 61);
+  border: none;
+  color: white;
+}
